@@ -1,4 +1,3 @@
-#cloned copy changes.
 import shutil
 import os
 import datetime
@@ -9,8 +8,8 @@ conti='Y'
 def exten():
 	while True:
 		try:
-			print 'Please enter Extension types (Comma-Separated):'
-			ext = tuple(str(x.strip()) for x in raw_input().split(','))
+			print ('Please enter Extension types (Comma-Separated):')
+			ext = tuple(str(x.strip()) for x in input().split(','))
 			if ext.startswith('.'):
 				return(ext)
 		except ValueError:
@@ -35,26 +34,21 @@ def createfolder(datefolder, user_input_dest):
 
 
 def no_walk(src, dest, x):
-	try:
-		source = os.listdir(src)
-		os.chdir(src)
+	source = os.listdir(src)
+	os.chdir(src)
 
-		count = 0
-		for files in source:
-			if files.endswith(ext):
-				if x == "C":
-					shutil.copy(files, dest)
-					count += 1
+	count = 0
+	for files in source:
+		if files.endswith(ext):
+			if x == "C":
+				shutil.copy(files, dest)
+				count += 1
+			elif x == "M":
+				shutil.move(files, dest)
+				count += 1
 
-				elif x == "M":
-					shutil.move(files, dest)
-					count += 1
-
-		print '\n', count, ' Files Copied'
-		print 'Completed!'
-
-	except WindowsError, e:
-		print(e)
+	print ('\n', count, ' Files Copied')
+	print ('Completed!')
 
 
 def directory_walk(src, dest, x):
@@ -75,39 +69,38 @@ def directory_walk(src, dest, x):
 					count += 1
 
 				else:
-					print "Wrong Input! Please input C or M!"
+					print ("Wrong Input! Please input C or M!")
 	
-	print '\n', count, ' Files Copied'	
-	print 'Completed!'
+	print ('\n', count, ' Files Copied')
+	print ('Completed!')
 
 
 if __name__ == "__main__":
 	
 	while conti=='Y':
 
-		user_input_source = raw_input('Please enter Source directory: \n')
-		user_input_dest = raw_input('Please enter Destination directory: \n')
-		print 'Please enter Extension types (Comma-Separated):'
-		ext = tuple(str(x.strip()) for x in raw_input().split(','))
+		user_input_source = input('Please enter Source directory: \n')
+		user_input_dest = input('Please enter Destination directory: \n')
+		print ('Please enter Extension types (Comma-Separated):')
+		ext = tuple(str(x.strip()) for x in input().split(','))
 		
-		print 'Do you want a new directory created with this name and date? Y or N'
-		datefolder = raw_input().upper()
+		print ('Do you want a new directory created with this name and date? Y or N')
+		datefolder = input().upper()
 		new_dest = createfolder(datefolder, user_input_dest)
 
-		directory = raw_input("Directory Walk Search? Y or N \n" ).upper()
+		directory = input("Directory Walk Search? Y or N \n" ).upper()
 		
 		if directory == "Y":
-			x = raw_input("Copy [C] or Move [M]? \n" ).upper()
+			x = input("Copy [C] or Move [M]? \n" ).upper()
 			directory_walk(user_input_source, new_dest, x)
 
-			conti = raw_input('Continue? Input Y or N \n').upper()
+			conti = input('Continue? Input Y or N \n').upper()
 
 		elif directory == "N":
-			x = raw_input("Copy [C] or Move [M]? \n" ).upper()
+			x = input("Copy [C] or Move [M]? \n" ).upper()
 			no_walk(user_input_source, new_dest, x)
 
-			conti = raw_input('Continue? Input Y or N \n').upper()
+			conti = input('Continue? Input Y or N \n').upper()
 
 		else:
-			print "Wrond Input! Please input Y or N!"
-#C:\Users\CMMALLI\Desktop\pyth
+			print ("Wrong Input! Please input Y or N!")
